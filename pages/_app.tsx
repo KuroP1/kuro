@@ -10,3 +10,13 @@ export default function App({ Component, pageProps }: AppProps) {
     </div>
   );
 }
+
+// const axios = require("axios").default;
+
+// axios
+//   .get(
+//     "https://api.mozambiquehe.re/bridge?auth=f70ea231d8513fc9b1e8e21d22eedd02&player=chaoticbutpc&platform=PC"
+//   )
+//   .then((res) => {
+//     console.log(res.data);
+//   });
