@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Footer, Navbar } from "@/components";
+import { APEXStats } from "./types/Apex.type";
+import { AgentOptions } from "http";
+import Image from "next/image";
 
-const index = () => {
+const Index = () => {
   const [player, setPlayer] = useState("");
-  const [result, setResult] = useState({});
+  const [result, setResult] = useState<APEXStats>();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
 
     try {
-      const response = await axios.get(
+      const response = await axios.get<APEXStats>(
         "https://api.mozambiquehe.re/bridge?auth=f70ea231d8513fc9b1e8e21d22eedd02&player=" +
           player +
           "&platform=PC"
@@ -51,14 +54,19 @@ const index = () => {
               </button>
             </div>
           </form>
-          {result.total && (
-            <ul>
-              {Object.entries(result.total).map(([key, value]) => (
-                <li key={key}>
-                  {value.name}: {value.value}
-                </li>
-              ))}
-            </ul>
+          {JSON.stringify(result?.global?.rank)}
+
+          {result && (
+            <>
+              <img src={result?.global?.rank.rankImg} alt="" />
+              <ul>
+                {Object.entries(result.total).map(([key, value]) => (
+                  <li key={key}>
+                    {value.name}: {value.value}
+                  </li>
+                ))}
+              </ul>
+            </>
           )}
         </div>
       </div>
@@ -67,4 +75,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Index;
